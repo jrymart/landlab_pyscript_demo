@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/mini-coi.js" scope="./"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" contents="width=device-width,initial-scale=1" />
+    <title>A landlab model in Pyscript</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.3.2/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.3.2/core.js"></script>
+  </head>
+  <body>
+    <py-script src="hillslope_lem.py"> </py-script> 
+    <h1>A Simple Diffusion Model</h1>
+    {% for param in dynamic_params %}
+    <input type="text" id="{{ param }}" placeholder="{{ param }}" />
+    {% endfor %}
+    <button id="go_button" py-click="go_button">RUN</button>
+    Mean Elevation:
+    <div id="output"></div>
+    </br>
+    <div id="mpl"></div>
+    <script type="py" src="./web_model.py" config="./pyscript.json"></script>
+  </body>
+</html>
+python

@@ -1,0 +1,7 @@
+{
+    "packages": ["micropip", "numpy", "matplotlib",
+		 "http://localhost:9000/landlab-2.7.1.dev0-cp311-cp311-emscripten_3_1_46_wasm32.whl",
+		 "http://localhost:9000/bmipy-2.0.2.dev0-py3-none-any.whl"
+		],
+    "files": {"./demo_params.json": "./demo_params.json"}
+}

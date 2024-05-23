@@ -1,5 +1,6 @@
 from landlab.core import load_params
 from landlab.components import LinearDiffuser
+from pyscript import window
 
 #! /usr/bin/env python
 # coding: utf-8
@@ -249,34 +250,34 @@ class LandlabModel:
             next_pause = min(self.next_plot, self.next_save)
             next_pause = min(next_pause, self.next_report)
             self.update_until(next_pause, dt)
-            if self.current_time >= self.next_report:
-                self.report(self.current_time)
-                self.next_report = self.report_times.pop(0)
-            if self.current_time >= self.next_plot:
-                self.plot()
-                self.next_plot = self.plot_times.pop(0)
-            if self.current_time >= self.next_save:
-                self.save_num += 1
-                self.save_state(
-                    self.save_path, self.save_num, self.ndigits_for_save_files
-                )
-                self.next_save = self.save_times.pop(0)
+            #if self.current_time >= self.next_report:
+            #    self.report(self.current_time)
+            #    self.next_report = self.report_times.pop(0)
+            #if self.current_time >= self.next_plot:
+            #    self.plot()
+            #    self.next_plot = self.plot_times.pop(0)
+            #if self.current_time >= self.next_save:
+            #    self.save_num += 1
+            #    self.save_state(
+            #        self.save_path, self.save_num, self.ndigits_for_save_files
+            #    )
+            #    self.next_save = self.save_times.pop(0)
 
 
-if __name__ == "__main__":
-    """Launch a run.
+# if __name__ == "__main__":
+#     """Launch a run.
 
-    Optional command-line argument is the name of a yaml-format text file with
-    parameters. File should include sections for "grid_setup", "process",
-    "run_control", and "output". Each of these should have the format shown in
-    the defaults defined above in the class header.
-    """
-    if len(sys.argv) > 1:
-        params = load_params(sys.argv[1])
-        sim = LandlabModel(params)
-    else:
-        sim = LandlabModel()  # use default params
-    sim.run()
+#     Optional command-line argument is the name of a yaml-format text file with
+#     parameters. File should include sections for "grid_setup", "process",
+#     "run_control", and "output". Each of these should have the format shown in
+#     the defaults defined above in the class header.
+#     """
+#     if len(sys.argv) > 1:
+#         params = load_params(sys.argv[1])
+#         sim = LandlabModel(params)
+#     else:
+#         sim = LandlabModel()  # use default params
+#     sim.run()
 
 
 class HillslopeLem(LandlabModel):
@@ -325,6 +326,10 @@ class HillslopeLem(LandlabModel):
         self.topo[self.grid.core_nodes] += self.uplift_rate * dt
         self.diffuser.run_one_step(dt)
         self.current_time += dt
+
+    def web_plot(self, ax):
+        middle_swath = self.grid.at_node["topographic__elevation"].reshape(model.grid.shape)[:,2]
+        ax.plot(middle_swath, label="TEST1")
         
 
-        
+window.console.log("hillslope_model loaded")        

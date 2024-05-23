@@ -11,13 +11,9 @@
   <body>
     <py-script src="hillslope_lem.py"> </py-script> 
     <h1>A Simple Diffusion Model</h1>
-    
-    <input type="text" id="clock-stop" placeholder="clock-stop" />
-    
-    <input type="text" id="baselevel-uplift_rate" placeholder="baselevel-uplift_rate" />
-    
-    <input type="text" id="diffuser-D" placeholder="diffuser-D" />
-    
+    {% for param in dynamic_params %}
+    <input type="text" id="{{ param }}" placeholder="{{ param }}" />
+    {% endfor %}
     <button id="go_button" py-click="go_button">RUN</button>
     Mean Elevation:
     <div id="output"></div>

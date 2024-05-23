@@ -249,18 +249,18 @@ class LandlabModel:
             next_pause = min(self.next_plot, self.next_save)
             next_pause = min(next_pause, self.next_report)
             self.update_until(next_pause, dt)
-            if self.current_time >= self.next_report:
-                self.report(self.current_time)
-                self.next_report = self.report_times.pop(0)
-            if self.current_time >= self.next_plot:
-                self.plot()
-                self.next_plot = self.plot_times.pop(0)
-            if self.current_time >= self.next_save:
-                self.save_num += 1
-                self.save_state(
-                    self.save_path, self.save_num, self.ndigits_for_save_files
-                )
-                self.next_save = self.save_times.pop(0)
+            #if self.current_time >= self.next_report:
+            #    self.report(self.current_time)
+            #    self.next_report = self.report_times.pop(0)
+            #if self.current_time >= self.next_plot:
+            #    self.plot()
+            #    self.next_plot = self.plot_times.pop(0)
+            #if self.current_time >= self.next_save:
+            #    self.save_num += 1
+            #    self.save_state(
+            #        self.save_path, self.save_num, self.ndigits_for_save_files
+            #    )
+            #    self.next_save = self.save_times.pop(0)
 
 
 if __name__ == "__main__":

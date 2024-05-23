@@ -11,7 +11,13 @@
   <body>
     <py-script src="hillslope_lem.py"> </py-script> 
     <h1>A Simple Diffusion Model</h1>
-    <input type="text" id="D_input" placeholder="Diffusivity" />
+    
+    <input type="text" id="clock-stop" placeholder="clock-stop" />
+    
+    <input type="text" id="baselevel-uplift_rate" placeholder="baselevel-uplift_rate" />
+    
+    <input type="text" id="diffuser-D" placeholder="diffuser-D" />
+    
     <button id="go_button" py-click="go_button">RUN</button>
     Mean Elevation:
     <div id="output"></div>
@@ -20,3 +26,4 @@
     <script type="py" src="./web_model.py" config="./pyscript.json"></script>
   </body>
 </html>
+python

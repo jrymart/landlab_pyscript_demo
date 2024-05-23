@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 #import jinja2
 from collections.abc import MutableMapping
 import json
+from copy import deepcopy
 
 def _flatten_dict_gen(d, parent_key, sep):
     for k, v in d.items():
@@ -16,7 +17,6 @@ def _flatten_dict_gen(d, parent_key, sep):
             yield from flatten_dict(v, new_key, sep=sep).items()
         else:
             yield new_key, v
-
 
 def flatten_dict(d: MutableMapping, parent_key: str = '', sep: str = '-'):
     return dict(_flatten_dict_gen(d, parent_key, sep))
@@ -55,20 +55,24 @@ def get_dynamic_params(parameters):
 def get_input(key):
     input_val = document.querySelector("#%s" % key)
     window.console.log("getting key: %s" % key)
-    window.console.log("got value %s" % input_val)
+    window.console.log("got value %s" % input_val.value)
     return float(input_val.value)
 
 def create_model():
     global model
     global params
     dynamic_params = get_dynamic_params(params)
+    current_params = deepcopy(params)
+    window.console.log("dynamic params to get: %s" % dynamic_params)
     for param in dynamic_params:
         input = get_input(param)
-        working_params = params
+        working_params = current_params
         for key in param.split('-')[:-1]:
             working_params = working_params[key]
         working_params[param.split('-')[-1]] = input
-    model = HillslopeLem(params)
+    window.console.log("current_params: %s" % current_params)
+    window.console.log("global_params: %s" % params)
+    model = HillslopeLem(current_params)
 
 def run_model():
     global model
@@ -84,7 +88,8 @@ def get_model_output():
 def plot_model():
     global ax
     middle_swath = model.grid.at_node["topographic__elevation"].reshape(model.grid.shape)[:,2]
-    ax.plot(middle_swath, label="TEST")
+    #ax.plot(middle_swath, label="TEST")
+    model.web_plot(ax)
     ax.legend()
     display(fig, target="mpl", append=False)
 
@@ -102,10 +107,11 @@ def go_button(event):
     output_div = document.querySelector("#output")
     output_div.innerText = str(output_val)
 
+window.console.log("i've been loaded (web_model)")
 fig, ax = plt.subplots()
-#param_file = open("demo_params.json", 'r')
-#params = json.load(param_file)
-#param_file.close()
+param_file = open("demo_params.json", 'r')
+params = json.load(param_file)
+param_file.close()
 
 #if __name__ == '__main__':
 #    #global params

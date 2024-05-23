@@ -326,6 +326,10 @@ class HillslopeLem(LandlabModel):
         self.topo[self.grid.core_nodes] += self.uplift_rate * dt
         self.diffuser.run_one_step(dt)
         self.current_time += dt
+
+    def web_plot(self, ax):
+        middle_swath = self.grid.at_node["topographic__elevation"].reshape(model.grid.shape)[:,2]
+        ax.plot(middle_swath, label="TEST1")
         
 
 window.console.log("hillslope_model loaded")        

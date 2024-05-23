@@ -1,5 +1,6 @@
 from landlab.core import load_params
 from landlab.components import LinearDiffuser
+from pyscript import window
 
 #! /usr/bin/env python
 # coding: utf-8
@@ -327,4 +328,4 @@ class HillslopeLem(LandlabModel):
         self.current_time += dt
         
 
-        
+window.console.log("hillslope_model loaded")        

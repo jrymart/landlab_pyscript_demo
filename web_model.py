@@ -103,9 +103,9 @@ def go_button(event):
     output_div.innerText = str(output_val)
 
 fig, ax = plt.subplots()
-param_file = open("demo_params.json", 'r')
-params = json.load(param_file)
-param_file.close()
+#param_file = open("demo_params.json", 'r')
+#params = json.load(param_file)
+#param_file.close()
 
 #if __name__ == '__main__':
 #    #global params
